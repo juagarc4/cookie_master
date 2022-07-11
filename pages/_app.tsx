@@ -1,21 +1,25 @@
-import '../styles/globals.css'
+import { useEffect, useState } from 'react'
 import type { AppProps } from 'next/app'
 import Cookies from 'js-cookie'
 import { CssBaseline, Theme, ThemeProvider } from '@mui/material'
 import { customTheme, lightTheme, darkTheme } from 'themes'
+import 'styles/globals.css'
 
 interface Props extends AppProps {
   theme: string
 }
 
 function MyApp({ Component, pageProps, theme = 'light' }: Props) {
-  // The cookie ist not available here. Therefor the server renders "light" for CookieTheme
-  // Once the page is rendered we get the cookie en CookieTheme is 'dark"
-  // If it happens we will receive the following error on the browser's console
-  // Warning: Prop `className` did not match. Server: ...
+  const [currentTheme, setCurrenttTheme] = useState(lightTheme)
 
-  const cookieTheme = Cookies.get('theme') || 'light'
-  const currentTheme: Theme = cookieTheme === 'light' ? lightTheme : CookieTheme === 'dark' ? darkTheme : customTheme
+  // To fix the error 'Warning: Prop `className` did not match. Server:
+  // we use an useEffect
+  useEffect(() => {
+    const cookieTheme = Cookies.get('theme') || 'light'
+    const selectedTheme: Theme = cookieTheme === 'light' ? lightTheme : cookieTheme === 'dark' ? darkTheme : customTheme
+    setCurrenttTheme(selectedTheme)
+  }, [])
+
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
