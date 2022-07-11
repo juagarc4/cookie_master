@@ -14,9 +14,8 @@ function MyApp({ Component, pageProps, theme = 'light' }: Props) {
   // If it happens we will receive the following error on the browser's console
   // Warning: Prop `className` did not match. Server: ...
 
-  const CookieTheme = Cookies.get('theme') || 'light'
-  console.log(CookieTheme)
-  const currentTheme: Theme = CookieTheme === 'light' ? lightTheme : CookieTheme === 'dark' ? darkTheme : customTheme
+  const cookieTheme = Cookies.get('theme') || 'light'
+  const currentTheme: Theme = cookieTheme === 'light' ? lightTheme : CookieTheme === 'dark' ? darkTheme : customTheme
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
