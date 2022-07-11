@@ -1,4 +1,6 @@
-const AboutPage = () => {
+import { NextPage } from 'next'
+
+const AboutPage: NextPage = () => {
   return <div>AboutPage</div>
 }
 

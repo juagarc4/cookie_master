@@ -4,10 +4,13 @@ import axios from 'axios'
 import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import Cookies from 'js-cookie'
 import { Layout } from 'components/layouts'
+import { dark } from '@mui/material/styles/createPalette'
 
-const ThemChangerPage: FC = (props) => {
-  console.log(props)
-  const [currentTheme, setCurrentTheme] = useState('light')
+interface Props {
+  theme: string
+}
+const ThemChangerPage: FC<Props> = ({ theme }) => {
+  const [currentTheme, setCurrentTheme] = useState(theme)
 
   const onThemeChanged = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedTheme = event.target.value
@@ -51,9 +54,11 @@ const ThemChangerPage: FC = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { theme = 'light', name = 'no name' } = req.cookies
+  const validThemes = ['light', 'dark', 'custom']
+
   return {
     props: {
-      theme,
+      theme: validThemes.includes(theme) ? theme : 'dark',
       name,
     },
   }
