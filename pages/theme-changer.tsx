@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react'
 import { Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
+import Cookies from 'js-cookie'
 import { Layout } from 'components/layouts'
+
 const ThemChangerPage = () => {
   const [currentTheme, setCurrentTheme] = useState('light')
 
@@ -9,6 +11,7 @@ const ThemChangerPage = () => {
 
     console.log({ selectedTheme })
     setCurrentTheme(selectedTheme)
+    Cookies.set('theme', selectedTheme)
   }
   return (
     <Layout>
