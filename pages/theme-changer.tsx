@@ -1,9 +1,12 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
+import { GetServerSideProps } from 'next'
+
 import { Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import Cookies from 'js-cookie'
 import { Layout } from 'components/layouts'
 
-const ThemChangerPage = () => {
+const ThemChangerPage: FC = (props) => {
+  console.log(props)
   const [currentTheme, setCurrentTheme] = useState('light')
 
   const onThemeChanged = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,4 +34,16 @@ const ThemChangerPage = () => {
   )
 }
 
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { theme = 'light', name = 'no name' } = req.cookies
+  return {
+    props: {
+      theme,
+      name,
+    },
+  }
+}
 export default ThemChangerPage
