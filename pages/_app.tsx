@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app'
 import Cookies from 'js-cookie'
 import { CssBaseline, Theme, ThemeProvider } from '@mui/material'
 import { customTheme, lightTheme, darkTheme } from 'themes'
-import { ConstructionOutlined } from '@mui/icons-material'
 
 interface Props extends AppProps {
   theme: string
