@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps, theme }: Props) {
   )
 }
 
+// With this function we deactivate SSG
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const { theme } = appContext.ctx.req ? (appContext.ctx.req as any).cookies : { theme: 'light' }
   const validThemes = ['light', 'dark', 'custom']
