@@ -1,7 +1,7 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
-
-import { Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
+import axios from 'axios'
+import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import Cookies from 'js-cookie'
 import { Layout } from 'components/layouts'
 
@@ -14,8 +14,19 @@ const ThemChangerPage: FC = (props) => {
 
     console.log({ selectedTheme })
     setCurrentTheme(selectedTheme)
+    localStorage.setItem('theme', selectedTheme)
     Cookies.set('theme', selectedTheme)
   }
+
+  const onClick = async () => {
+    const { data } = await axios.get('/api/hello')
+    console.log(data)
+  }
+  useEffect(() => {
+    console.log('Localstorage:', localStorage.getItem('theme'))
+    console.log('Cookies:', Cookies.get('theme'))
+  }, [])
+
   return (
     <Layout>
       <Card>
@@ -28,6 +39,7 @@ const ThemChangerPage: FC = (props) => {
               <FormControlLabel value='custom' control={<Radio />} label='Custom' />
             </RadioGroup>
           </FormControl>
+          <Button onClick={onClick}>Request</Button>
         </CardContent>
       </Card>
     </Layout>
